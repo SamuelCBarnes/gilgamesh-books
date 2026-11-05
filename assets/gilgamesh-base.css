@@ -1,0 +1,44 @@
+/* Gilgamesh Books — The Collector's Cabinet | Design system v0.1
+   Dawn 16.1.1 extension. Does not replace Dawn commerce components. */
+:root {
+  --gb-forest: #24392e;
+  --gb-forest-dark: #17291f;
+  --gb-parchment: #efe4cf;
+  --gb-paper: #faf6ed;
+  --gb-walnut: #4a3427;
+  --gb-brass: #b28a4a;
+  --gb-plum: #6b4c5c;
+  --gb-ink: #261f1b;
+  --gb-divider: #d6c8b3;
+  --gb-font-display: Georgia, 'Times New Roman', serif;
+  --gb-font-body: Arial, Helvetica, sans-serif;
+}
+
+/* Global shell: intentionally narrow selectors to retain Dawn accessibility and commerce behavior. */
+body { background: var(--gb-paper); }
+.header-wrapper, .header-wrapper.color-scheme-1, .section-header .header-wrapper { background: var(--gb-forest-dark); color: var(--gb-parchment); }
+.header-wrapper .header__heading-link, .header-wrapper .header__heading-link .h2,
+.header-wrapper .header__menu-item, .header-wrapper .header__icon,
+.header-wrapper .header__active-menu-item { color: var(--gb-parchment); }
+.header-wrapper .header__menu-item:hover, .header-wrapper .header__icon:hover { color: #fff; }
+.header-wrapper .header__menu-item span { text-decoration-color: var(--gb-brass); }
+.header-wrapper .header__icon .icon, .header-wrapper .header__icon svg { color: inherit; }
+.header-wrapper .header__heading-link { font-family: var(--gb-font-display); letter-spacing: .035em; }
+
+/* Editorial typographic treatment while retaining Shopify font-picker controls for body. */
+h1, h2, h3, .h0, .h1, .h2, .h3, .title, .card__heading { font-family: var(--gb-font-display); }
+body, button, input, select, textarea { -webkit-font-smoothing: antialiased; }
+
+/* Preserve the native Dawn button and focus patterns. Color can later be managed via theme schemes. */
+.button:not(.button--secondary), .shopify-payment-button__button--unbranded { background-color: var(--gb-plum); color: #fff; }
+.button:not(.button--secondary)::after { box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) var(--gb-plum), 0 0 0 var(--buttons-border-width) var(--gb-plum); }
+.button:not(.button--secondary):hover { background-color: #553949; }
+.button:not(.button--secondary):focus-visible { outline: 2px solid var(--gb-brass); outline-offset: 4px; }
+
+/* Navigation dropdowns must keep their own light surface for readability. */
+.header-wrapper .header__submenu, .header-wrapper .menu-drawer { color: var(--gb-ink); background: var(--gb-paper); }
+.header-wrapper .header__submenu .header__menu-item, .header-wrapper .menu-drawer a { color: var(--gb-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gb-hero *, .gb-hero *::before, .gb-hero *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
