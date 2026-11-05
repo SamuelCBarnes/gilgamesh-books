@@ -1,0 +1,199 @@
+{{ 'gilgamesh-curated-collections.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="GilgameshCollections-{{ section.id }}"
+  class="gb-collections color-{{ section.settings.color_scheme }} gradient"
+  aria-labelledby="GilgameshCollectionsTitle-{{ section.id }}"
+>
+  <div class="page-width gb-collections__inner">
+    <div class="gb-collections__heading-row">
+      <div class="gb-collections__heading-wrap">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="gb-collections__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 id="GilgameshCollectionsTitle-{{ section.id }}" class="gb-collections__title">
+          {{ section.settings.heading | escape }}
+        </h2>
+        {%- if section.settings.description != blank -%}
+          <div class="gb-collections__description rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.show_view_all and section.settings.view_all_link != blank -%}
+        <a class="gb-collections__view-all" href="{{ section.settings.view_all_link }}">
+          {{ section.settings.view_all_label | default: 'Browse all books' | escape }}
+          <span aria-hidden="true">→</span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="gb-collections__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign card_collection = block.settings.collection
+          assign destination = block.settings.link
+          if destination == blank and card_collection != blank
+            assign destination = card_collection.url
+          endif
+          assign card_title = block.settings.title
+          if card_title == blank and card_collection != blank
+            assign card_title = card_collection.title
+          endif
+          if card_title == blank
+            assign card_title = 'Curated collection'
+          endif
+          assign image = block.settings.image
+          if image == blank and card_collection != blank
+            assign image = card_collection.featured_image
+          endif
+        -%}
+        <article class="gb-collections__card" {{ block.shopify_attributes }}>
+          {%- if destination != blank -%}
+            <a class="gb-collections__card-link" href="{{ destination }}" aria-label="Explore {{ card_title | escape }}">
+          {%- else -%}
+            <div class="gb-collections__card-link gb-collections__card-link--inactive">
+          {%- endif -%}
+              <div class="gb-collections__image-wrap">
+                {%- if image != blank -%}
+                  {{ image
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'gb-collections__image',
+                      loading: 'lazy',
+                      widths: '320, 450, 600, 800, 1000, 1200',
+                      sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 100vw',
+                      alt: card_title
+                  }}
+                {%- else -%}
+                  <div class="gb-collections__placeholder" aria-hidden="true">
+                    {{ 'collection-1' | placeholder_svg_tag: 'gb-collections__placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+                <div class="gb-collections__image-shade" aria-hidden="true"></div>
+              </div>
+              <div class="gb-collections__card-content">
+                {%- if block.settings.kicker != blank -%}
+                  <span class="gb-collections__card-kicker">{{ block.settings.kicker | escape }}</span>
+                {%- endif -%}
+                <h3 class="gb-collections__card-title">{{ card_title | escape }}</h3>
+                {%- if block.settings.subtitle != blank -%}
+                  <p class="gb-collections__card-subtitle">{{ block.settings.subtitle | escape }}</p>
+                {%- endif -%}
+                <span class="gb-collections__card-action" aria-hidden="true">
+                  {%- if destination != blank -%}Explore collection{%- else -%}Coming soon{%- endif -%}
+                  <span aria-hidden="true">→</span>
+                </span>
+              </div>
+          {%- if destination != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gilgamesh collections",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "DISCOVER SOMETHING REMARKABLE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Rare discoveries, forbidden histories, and exceptional books curated for the curious.</p>"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show browse-all link",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Browse-all label",
+      "default": "Browse all books"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Browse-all destination"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Shopify collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Override image",
+          "info": "If empty, the collection image is used when available."
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Small label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Override title",
+          "info": "If empty, the Shopify collection title is used."
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Short description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Override destination",
+          "info": "Optional. Normally leave empty to link to the chosen collection."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gilgamesh collections",
+      "blocks": [
+        { "type": "collection_card", "settings": { "kicker": "THE UNCOMMON", "title": "Rare Books", "subtitle": "Scarce editions and historically significant works" } },
+        { "type": "collection_card", "settings": { "kicker": "THE FORBIDDEN SHELF", "title": "Banned Books", "subtitle": "Challenged, suppressed, and censored literature" } },
+        { "type": "collection_card", "settings": { "kicker": "WORTH KEEPING", "title": "Collectibles", "subtitle": "Limited printings and distinctive editions" } },
+        { "type": "collection_card", "settings": { "kicker": "PERSONAL HISTORIES", "title": "Signed Editions", "subtitle": "Author-signed and noteworthy editions" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

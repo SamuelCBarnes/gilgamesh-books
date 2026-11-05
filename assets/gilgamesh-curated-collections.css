@@ -1,0 +1,90 @@
+/* Gilgamesh Books — Collector's Cabinet curated collections */
+.gb-collections {
+  --gb-card-brass: #b28a4a;
+  --gb-card-parchment: #efe4cf;
+  padding: clamp(3.6rem, 5vw, 7.5rem) 0;
+}
+.gb-collections__inner { max-width: 144rem; }
+.gb-collections__heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: clamp(2.4rem, 3vw, 3.8rem);
+}
+.gb-collections__heading-wrap { min-width: 0; }
+.gb-collections__eyebrow {
+  margin: 0 0 .75rem;
+  color: #82622f;
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+.gb-collections__title {
+  margin: 0;
+  font-family: var(--font-heading-family), Georgia, serif;
+  font-size: clamp(3rem, 3.2vw, 4.8rem);
+  line-height: 1.14;
+}
+.gb-collections__description { max-width: 62rem; margin-top: 1rem; font-size: 1.5rem; line-height: 1.55; }
+.gb-collections__description p { margin: 0; }
+.gb-collections__view-all {
+  color: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gb-card-brass);
+  font-weight: 600;
+  font-size: 1.35rem;
+  padding-bottom: .3rem;
+}
+.gb-collections__view-all span { margin-left: .35rem; }
+.gb-collections__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem; }
+.gb-collections__card { min-width: 0; }
+.gb-collections__card-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 37rem;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff5df;
+  text-decoration: none;
+  background: #24392e;
+  border: 1px solid rgba(178,138,74,.5);
+}
+.gb-collections__card-link:not(.gb-collections__card-link--inactive):hover .gb-collections__image,
+.gb-collections__card-link:not(.gb-collections__card-link--inactive):focus-visible .gb-collections__image { transform: scale(1.045); }
+.gb-collections__card-link:focus-visible { outline: 3px solid var(--gb-card-brass); outline-offset: 3px; }
+.gb-collections__image-wrap,
+.gb-collections__image-shade,
+.gb-collections__placeholder { position: absolute; inset: 0; }
+.gb-collections__image { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.gb-collections__placeholder { display: grid; place-items: center; background: linear-gradient(145deg, #4a3427, #172b20); }
+.gb-collections__placeholder-svg { height: 100%; width: 100%; opacity: .22; }
+.gb-collections__image-shade { background: linear-gradient(180deg, rgba(10,18,14,.06) 12%, rgba(8,14,10,.48) 47%, rgba(8,14,10,.94) 100%); }
+.gb-collections__card-content { position: relative; z-index: 1; margin-top: auto; padding: 2.2rem 2rem 2rem; }
+.gb-collections__card-kicker { display: block; font-size: 1rem; font-weight: 700; letter-spacing: .16em; color: #ead0a3; margin-bottom: .65rem; }
+.gb-collections__card-title { color: #fff8ea; font-family: var(--font-heading-family), Georgia, serif; font-size: clamp(2.15rem, 2vw, 3rem); line-height: 1.12; margin: 0; }
+.gb-collections__card-subtitle { color: #f3e8d2; font-size: 1.35rem; line-height: 1.45; margin: 1rem 0 0; }
+.gb-collections__card-action { display: inline-flex; gap: .65rem; align-items: center; color: #e8c78d; font-size: 1.15rem; font-weight: 700; margin-top: 1.7rem; letter-spacing: .04em; }
+.gb-collections__card-link--inactive { cursor: default; }
+@media (max-width: 989px) {
+  .gb-collections__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gb-collections__card-link { min-height: 33rem; }
+}
+@media (max-width: 599px) {
+  .gb-collections { padding: 3.8rem 0; }
+  .gb-collections__heading-row { display: block; }
+  .gb-collections__view-all { display: inline-block; margin-top: 1.5rem; }
+  .gb-collections__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .gb-collections__card-link { min-height: 26rem; }
+  .gb-collections__card-content { padding: 1.4rem 1.15rem; }
+  .gb-collections__card-title { font-size: 2rem; }
+  .gb-collections__card-kicker { font-size: .9rem; letter-spacing: .1em; }
+  .gb-collections__card-subtitle { font-size: 1.15rem; }
+  .gb-collections__card-action { font-size: 1.02rem; margin-top: 1.1rem; }
+}
+@media (max-width: 359px) { .gb-collections__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .gb-collections__image { transition: none; } }

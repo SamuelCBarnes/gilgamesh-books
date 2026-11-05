@@ -42,3 +42,114 @@ body, button, input, select, textarea { -webkit-font-smoothing: antialiased; }
 @media (prefers-reduced-motion: reduce) {
   .gb-hero *, .gb-hero *::before, .gb-hero *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* V2 — Collector's Cabinet header, site rhythm and catalog foundations */
+:root {
+  --gb-container: 144rem;
+  --gb-space-section: clamp(4.8rem, 6vw, 9.6rem);
+}
+
+/* Use existing Shopify header semantics; do not modify cart, navigation or search JS. */
+.header-wrapper {
+  border-bottom: 1px solid rgba(178, 138, 74, .55);
+}
+.header-wrapper .header {
+  min-height: 8.2rem;
+}
+.header-wrapper .header__heading,
+.header-wrapper .header__heading-link {
+  max-width: 34rem;
+}
+.header-wrapper .header__heading-link {
+  padding-block: .75rem;
+  text-decoration: none;
+}
+.header-wrapper .header__heading-link .h2,
+.header-wrapper .header__heading-link > span {
+  font-family: var(--gb-font-display);
+  font-size: clamp(2rem, 2.05vw, 3.1rem);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+.header-wrapper .header__inline-menu .list-menu__item {
+  font-family: var(--gb-font-display);
+  font-size: 1.55rem;
+  letter-spacing: .012em;
+}
+.header-wrapper .header__active-menu-item {
+  text-decoration-color: var(--gb-brass);
+  text-underline-offset: .6rem;
+}
+.header-wrapper .header__icon:focus-visible,
+.header-wrapper .header__menu-item:focus-visible,
+.header-wrapper .header__heading-link:focus-visible {
+  outline: 2px solid var(--gb-brass);
+  outline-offset: 3px;
+}
+
+/* Parchment background and headings on catalog / content pages. */
+body:not(.template-password) {
+  background: var(--gb-paper);
+}
+body:not(.template-password) .collection-hero,
+body:not(.template-password) .product__info-container,
+body:not(.template-password) .main-page-title {
+  color: var(--gb-ink);
+}
+.collection-hero__title,
+.main-page-title,
+.title--primary {
+  letter-spacing: -.025em;
+}
+
+/* Allow cards to breathe while retaining Dawn's full responsive grid behavior. */
+.card__heading {
+  line-height: 1.24;
+  letter-spacing: -.012em;
+}
+.card-information .price {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons keep Dawn's focus/disabled behavior; refine typography only. */
+.button,
+.shopify-payment-button__button--unbranded {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+
+@media (min-width: 990px) {
+  .header-wrapper .header--middle-left {
+    column-gap: clamp(2rem, 3vw, 5rem);
+  }
+}
+@media (max-width: 989px) {
+  .header-wrapper .header { min-height: 6.4rem; }
+  .header-wrapper .header__heading-link .h2,
+  .header-wrapper .header__heading-link > span {
+    font-size: clamp(1.65rem, 4.5vw, 2.45rem);
+  }
+}
+
+
+/* Gilgamesh Books — desktop navigation refinement */
+@media screen and (min-width: 990px) {
+  .header-wrapper .header.page-width {
+    max-width: 144rem;
+    width: 100%;
+  }
+
+  .header__inline-menu .list-menu--inline {
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+  }
+
+  .header__inline-menu .header__menu-item {
+    padding: 1.2rem 1rem;
+    white-space: nowrap;
+  }
+}
+
