@@ -1,0 +1,95 @@
+{{ 'gilgamesh-collector-highlights.css' | asset_url | stylesheet_tag }}
+
+<section id="GilgameshHighlights-{{ section.id }}" class="gb-highlights" aria-labelledby="gb-highlights-title-{{ section.id }}">
+  <div class="gb-highlights__container page-width">
+    <div class="gb-highlights__header">
+      <div>
+        {% if section.settings.eyebrow != blank %}
+          <p class="gb-highlights__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {% endif %}
+        <h2 id="gb-highlights-title-{{ section.id }}" class="gb-highlights__title">{{ section.settings.heading | escape }}</h2>
+        {% if section.settings.intro != blank %}
+          <p class="gb-highlights__intro">{{ section.settings.intro | escape }}</p>
+        {% endif %}
+      </div>
+      {% if section.settings.view_all_link != blank and section.settings.view_all_label != blank %}
+        <a class="gb-highlights__view-all" href="{{ section.settings.view_all_link }}">{{ section.settings.view_all_label | escape }} <span aria-hidden="true">→</span></a>
+      {% endif %}
+    </div>
+
+    {% assign populated_count = 0 %}
+    {% for block in section.blocks %}
+      {% if block.settings.featured_product != blank %}
+        {% assign populated_count = populated_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if populated_count > 0 %}
+      <div class="gb-highlights__grid">
+        {% for block in section.blocks %}
+          {% assign featured_book = block.settings.featured_product %}
+          {% if featured_book != blank %}
+            <article class="gb-highlights__card" {{ block.shopify_attributes }}>
+              <a class="gb-highlights__image-link" href="{{ featured_book.url }}" aria-label="View {{ featured_book.title | escape }}">
+                {% if featured_book.featured_image != blank %}
+                  {{ featured_book.featured_image | image_url: width: 800 | image_tag: class: 'gb-highlights__image', loading: 'lazy', widths: '240, 360, 480, 640, 800', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 100vw' }}
+                {% else %}
+                  <div class="gb-highlights__no-image" aria-hidden="true"><span>GILGAMESH<br>BOOKS</span></div>
+                {% endif %}
+                {% unless featured_book.available %}
+                  <span class="gb-highlights__availability">Sold out</span>
+                {% endunless %}
+              </a>
+              <div class="gb-highlights__details">
+                {% if block.settings.kicker != blank %}<p class="gb-highlights__kicker">{{ block.settings.kicker | escape }}</p>{% endif %}
+                <h3 class="gb-highlights__book-title"><a href="{{ featured_book.url }}">{{ featured_book.title | escape }}</a></h3>
+                {% assign book_condition = featured_book.metafields.custom.book_condition.value %}
+                {% assign edition_details = featured_book.metafields.custom.edition_details.value %}
+                {% if edition_details != blank or book_condition != blank %}
+                  <p class="gb-highlights__metadata">
+                    {% if edition_details != blank %}{{ edition_details | escape }}{% endif %}
+                    {% if edition_details != blank and book_condition != blank %}<span aria-hidden="true"> · </span>{% endif %}
+                    {% if book_condition != blank %}Condition: {{ book_condition | escape }}{% endif %}
+                  </p>
+                {% endif %}
+                <div class="gb-highlights__bottom">
+                  <span class="gb-highlights__price">
+                    {% if featured_book.price_varies %}From {% endif %}{{ featured_book.price | money }}
+                  </span>
+                  <a href="{{ featured_book.url }}" class="gb-highlights__details-link">View details <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% elsif request.design_mode %}
+      <div class="gb-highlights__empty">Choose real Shopify book products in this section's blocks to display collector highlights. Nothing is shown to shoppers until you select products.</div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collector Highlights",
+  "tag": "section",
+  "class": "section-gilgamesh-highlights",
+  "max_blocks": 8,
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"FROM THE CABINET"},
+    {"type":"text","id":"heading","label":"Heading","default":"Collector Highlights"},
+    {"type":"textarea","id":"intro","label":"Intro","default":"Noteworthy editions, uncommon discoveries, and books worth keeping."},
+    {"type":"text","id":"view_all_label","label":"View all label","default":"Browse all books"},
+    {"type":"url","id":"view_all_link","label":"View all destination"}
+  ],
+  "blocks": [
+    {"type":"book","name":"Featured book","settings":[
+      {"type":"product","id":"featured_product","label":"Shopify product"},
+      {"type":"text","id":"kicker","label":"Editorial label","default":"CURATED EDITION"}
+    ]}
+  ],
+  "presets": [
+    {"name":"Collector Highlights","blocks":[{"type":"book"},{"type":"book"},{"type":"book"},{"type":"book"}]}
+  ]
+}
+{% endschema %}
