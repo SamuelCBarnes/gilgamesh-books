@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "gilgamesh_about": {
+      "type": "gilgamesh-about",
+      "settings": {
+        "hero_image": "shopify://shop_images/Golden_Antique_Library_Still_Life.png",
+        "hero_eyebrow": "OUR STORY · OUR PURPOSE",
+        "hero_heading": "Every Book Preserves a Piece of History.",
+        "hero_intro": "<p>From a personal library to an independent bookstore, Gilgamesh Books is built on a lifelong fascination with literature and the ideas worth preserving.</p>",
+        "story_eyebrow": "FROM COLLECTOR TO BOOKSELLER",
+        "story_heading": "A Collection Built on Curiosity",
+        "story_body": "<p>Gilgamesh Books began long before there was a storefront. It began with a personal library that has grown to approximately 3,000 books—and an enduring curiosity about the written word.</p><p>Rare and hard-to-find titles, occult and esoteric literature, banned and challenged works, and science fiction all found their way onto the shelves. Over time, the collector became a bookseller, eager to share unexpected discoveries with readers who appreciate the history behind a book as much as the words within it.</p>",
+        "story_image": "shopify://shop_images/rare-books.png",
+        "story_caption": "",
+        "name_eyebrow": "AN ANCIENT STORY · AN ENDURING IDEA",
+        "name_heading": "Why Gilgamesh?",
+        "name_body": "<p>The name comes from the <em>Epic of Gilgamesh</em>, among the oldest surviving works of literature. Thousands of years after its earliest versions were recorded, its questions about friendship, mortality, and the human experience still speak to us.</p><p>That extraordinary survival is the point: stories can travel farther through time than the people who first told them. Books are not merely objects to own. They carry memory, imagination, and human knowledge across generations.</p>",
+        "mission_image": "shopify://shop_images/forbidden-shelf-photo.webp",
+        "mission_eyebrow": "PRESERVING WHAT MATTERS",
+        "mission_heading": "Keep Knowledge Alive.",
+        "mission_body": "<p>The story of the lost Library of Alexandria remains a powerful reminder of how fragile the written record can be—and how much disappears when knowledge is neglected or destroyed.</p><p>Gilgamesh Books exists, in its own small way, to keep books and ideas circulating. Whether a work is obscure, controversial, challenged, forgotten, or simply difficult to find, we believe it deserves the chance to be read and remembered.</p><p>Preservation begins with curiosity. Sometimes it begins with a single book.</p>",
+        "interests_eyebrow": "INSIDE THE CABINET",
+        "interests_heading": "A Collection for the Curious",
+        "interests_intro": "The most interesting books are not always the easiest to find.",
+        "closing_eyebrow": "GILGAMESH BOOKS",
+        "closing_heading": "Some Stories Are Worth Keeping.",
+        "closing_body": "For readers, collectors, historians, and the endlessly curious.",
+        "button_label": "Explore the collection",
+        "button_link": "shopify://collections/all"
+      },
+      "blocks": {
+        "rare": {"type":"interest","settings":{"title":"Rare & Unusual Books","description":"Hard-to-find publications, obscure works, and remarkable discoveries.","link":"shopify://collections/rare-books"}},
+        "occult": {"type":"interest","settings":{"title":"Occult & Esoteric","description":"Mystical writings, esoteric traditions, and unconventional perspectives.","link":""}},
+        "banned": {"type":"interest","settings":{"title":"Banned & Challenged","description":"Literature that has faced controversy, censorship, or suppression.","link":"shopify://collections/banned-challenged-books"}},
+        "science": {"type":"interest","settings":{"title":"Science Fiction & Fantasy","description":"Imaginative works that explore what is possible and what it means to be human.","link":""}},
+        "collectible": {"type":"interest","settings":{"title":"Collectible Editions","description":"Distinctive printings, exceptional design, and volumes worth preserving.","link":"shopify://collections/collectible-books"}}
+      },
+      "block_order": ["rare","occult","banned","science","collectible"]
+    }
+  },
+  "order": ["gilgamesh_about"]
+}

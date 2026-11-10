@@ -1,0 +1,143 @@
+{{ 'gilgamesh-about.css' | asset_url | stylesheet_tag }}
+
+<section class="gb-about" aria-labelledby="gb-about-title-{{ section.id }}">
+  <div class="gb-about__hero">
+    {%- if section.settings.hero_image != blank -%}
+      <div class="gb-about__hero-media">
+        {{ section.settings.hero_image | image_url: width: 2400 | image_tag: class: 'gb-about__hero-image', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'eager' }}
+      </div>
+    {%- endif -%}
+    <div class="gb-about__hero-shade" aria-hidden="true"></div>
+    <div class="gb-about__container gb-about__hero-inner">
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <p class="gb-about__eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>
+      {%- endif -%}
+      <span class="gb-about__rule" aria-hidden="true"></span>
+      <h1 id="gb-about-title-{{ section.id }}" class="gb-about__hero-title">{{ section.settings.hero_heading | escape }}</h1>
+      {%- if section.settings.hero_intro != blank -%}
+        <div class="gb-about__hero-intro rte">{{ section.settings.hero_intro }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="gb-about__story gb-about__container">
+    <div class="gb-about__story-copy">
+      <p class="gb-about__eyebrow gb-about__eyebrow--dark">{{ section.settings.story_eyebrow | escape }}</p>
+      <h2 class="gb-about__heading">{{ section.settings.story_heading | escape }}</h2>
+      <div class="gb-about__body rte">{{ section.settings.story_body }}</div>
+      <p class="gb-about__stat"><strong>~3,000</strong><span>books in a personal collection</span></p>
+    </div>
+    <div class="gb-about__story-visual">
+      {%- if section.settings.story_image != blank -%}
+        {{ section.settings.story_image | image_url: width: 1200 | image_tag: class: 'gb-about__story-image', widths: '375, 550, 750, 990, 1200', sizes: '(min-width: 990px) 44vw, 100vw', loading: 'lazy' }}
+      {%- else -%}
+        <div class="gb-about__media-fallback"><span>THE COLLECTOR'S CABINET</span></div>
+      {%- endif -%}
+      {%- if section.settings.story_caption != blank -%}<p class="gb-about__caption">{{ section.settings.story_caption | escape }}</p>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="gb-about__history">
+    <div class="gb-about__container gb-about__history-inner">
+      <p class="gb-about__eyebrow">{{ section.settings.name_eyebrow | escape }}</p>
+      <h2 class="gb-about__heading gb-about__heading--light">{{ section.settings.name_heading | escape }}</h2>
+      <div class="gb-about__body gb-about__body--light rte">{{ section.settings.name_body }}</div>
+      <div class="gb-about__history-symbol" aria-hidden="true">✦</div>
+    </div>
+  </div>
+
+  <div class="gb-about__mission">
+    <div class="gb-about__mission-visual">
+      {%- if section.settings.mission_image != blank -%}
+        {{ section.settings.mission_image | image_url: width: 1400 | image_tag: class: 'gb-about__mission-image', widths: '550, 750, 1100, 1400', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy' }}
+      {%- else -%}
+        <div class="gb-about__media-fallback gb-about__media-fallback--dark"><span>KNOWLEDGE IS WORTH PRESERVING</span></div>
+      {%- endif -%}
+    </div>
+    <div class="gb-about__mission-panel">
+      <div class="gb-about__mission-content">
+        <p class="gb-about__eyebrow gb-about__eyebrow--dark">{{ section.settings.mission_eyebrow | escape }}</p>
+        <h2 class="gb-about__heading">{{ section.settings.mission_heading | escape }}</h2>
+        <div class="gb-about__body rte">{{ section.settings.mission_body }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gb-about__interests gb-about__container">
+    <p class="gb-about__eyebrow gb-about__eyebrow--dark">{{ section.settings.interests_eyebrow | escape }}</p>
+    <h2 class="gb-about__heading">{{ section.settings.interests_heading | escape }}</h2>
+    <p class="gb-about__interests-intro">{{ section.settings.interests_intro | escape }}</p>
+    <div class="gb-about__cards">
+      {%- for block in section.blocks -%}
+        <div class="gb-about__card" {{ block.shopify_attributes }}>
+          <span class="gb-about__card-number">{{ forloop.index | prepend: '0' }}</span>
+          <h3 class="gb-about__card-title">{{ block.settings.title | escape }}</h3>
+          <p class="gb-about__card-text">{{ block.settings.description | escape }}</p>
+          {%- if block.settings.link != blank -%}
+            <a class="gb-about__card-link" href="{{ block.settings.link }}">Explore <span aria-hidden="true">→</span></a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="gb-about__closing">
+    <div class="gb-about__container gb-about__closing-inner">
+      <p class="gb-about__eyebrow">{{ section.settings.closing_eyebrow | escape }}</p>
+      <h2 class="gb-about__closing-title">{{ section.settings.closing_heading | escape }}</h2>
+      {%- if section.settings.closing_body != blank -%}<p>{{ section.settings.closing_body | escape }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="gb-about__button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">→</span></a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gilgamesh About",
+  "tag": "section",
+  "class": "section-gilgamesh-about",
+  "settings": [
+    {"type":"header","content":"Hero"},
+    {"type":"image_picker","id":"hero_image","label":"Hero photograph"},
+    {"type":"text","id":"hero_eyebrow","label":"Hero eyebrow","default":"OUR STORY · OUR PURPOSE"},
+    {"type":"text","id":"hero_heading","label":"Hero headline","default":"Every Book Preserves a Piece of History."},
+    {"type":"richtext","id":"hero_intro","label":"Hero introduction","default":"<p>From a personal library to an independent bookstore, Gilgamesh Books is built on a lifelong fascination with literature and the ideas worth preserving.</p>"},
+    {"type":"header","content":"The collector"},
+    {"type":"text","id":"story_eyebrow","label":"Eyebrow","default":"FROM COLLECTOR TO BOOKSELLER"},
+    {"type":"text","id":"story_heading","label":"Heading","default":"A Collection Built on Curiosity"},
+    {"type":"richtext","id":"story_body","label":"Collector story","default":"<p>Gilgamesh Books began long before there was a storefront. It began with a personal library that has grown to approximately 3,000 books—and an enduring curiosity about the written word.</p><p>Rare and hard-to-find titles, occult and esoteric literature, banned and challenged works, and science fiction all found their way onto the shelves. Over time, the collector became a bookseller, eager to share unexpected discoveries with readers who appreciate the history behind a book as much as the words within it.</p>"},
+    {"type":"image_picker","id":"story_image","label":"Collector story image"},
+    {"type":"text","id":"story_caption","label":"Image caption (optional)"},
+    {"type":"header","content":"The name"},
+    {"type":"text","id":"name_eyebrow","label":"Eyebrow","default":"AN ANCIENT STORY · AN ENDURING IDEA"},
+    {"type":"text","id":"name_heading","label":"Heading","default":"Why Gilgamesh?"},
+    {"type":"richtext","id":"name_body","label":"Name story","default":"<p>The name comes from the <em>Epic of Gilgamesh</em>, among the oldest surviving works of literature. Thousands of years after its earliest versions were recorded, its questions about friendship, mortality, and the human experience still speak to us.</p><p>That extraordinary survival is the point: stories can travel farther through time than the people who first told them. Books are not merely objects to own. They carry memory, imagination, and human knowledge across generations.</p>"},
+    {"type":"header","content":"The mission"},
+    {"type":"image_picker","id":"mission_image","label":"Mission image"},
+    {"type":"text","id":"mission_eyebrow","label":"Eyebrow","default":"PRESERVING WHAT MATTERS"},
+    {"type":"text","id":"mission_heading","label":"Heading","default":"Keep Knowledge Alive."},
+    {"type":"richtext","id":"mission_body","label":"Mission story","default":"<p>The story of the lost Library of Alexandria remains a powerful reminder of how fragile the written record can be—and how much disappears when knowledge is neglected or destroyed.</p><p>Gilgamesh Books exists, in its own small way, to keep books and ideas circulating. Whether a work is obscure, controversial, challenged, forgotten, or simply difficult to find, we believe it deserves the chance to be read and remembered.</p><p>Preservation begins with curiosity. Sometimes it begins with a single book.</p>"},
+    {"type":"header","content":"Interests"},
+    {"type":"text","id":"interests_eyebrow","label":"Eyebrow","default":"INSIDE THE CABINET"},
+    {"type":"text","id":"interests_heading","label":"Heading","default":"A Collection for the Curious"},
+    {"type":"text","id":"interests_intro","label":"Introduction","default":"The most interesting books are not always the easiest to find."},
+    {"type":"header","content":"Closing call to action"},
+    {"type":"text","id":"closing_eyebrow","label":"Eyebrow","default":"GILGAMESH BOOKS"},
+    {"type":"text","id":"closing_heading","label":"Heading","default":"Some Stories Are Worth Keeping."},
+    {"type":"text","id":"closing_body","label":"Closing paragraph","default":"For readers, collectors, historians, and the endlessly curious."},
+    {"type":"text","id":"button_label","label":"Button label","default":"Explore the collection"},
+    {"type":"url","id":"button_link","label":"Button destination"}
+  ],
+  "blocks": [
+    {"type":"interest","name":"Book interest","limit":6,"settings":[
+      {"type":"text","id":"title","label":"Title","default":"Rare & Unusual Books"},
+      {"type":"textarea","id":"description","label":"Description","default":"Uncommon publications and remarkable discoveries."},
+      {"type":"url","id":"link","label":"Optional collection link"}
+    ]}
+  ],
+  "max_blocks": 6,
+  "presets": [{"name":"Gilgamesh About","blocks":[{"type":"interest"},{"type":"interest"},{"type":"interest"}]}]
+}
+{% endschema %}

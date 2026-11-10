@@ -1,0 +1,54 @@
+/* Gilgamesh Books — Collector's Cabinet / About page */
+.gb-about{--about-ink:var(--gb-ink,#261f1b);--about-paper:var(--gb-paper,#faf6ed);--about-parchment:var(--gb-parchment,#efe4cf);--about-forest:var(--gb-forest-dark,#17291f);--about-brass:var(--gb-brass,#b28a4a);color:var(--about-ink);background:var(--about-paper)}
+.gb-about *{box-sizing:border-box}
+.gb-about__container{width:min(100% - 4.8rem,120rem);margin-inline:auto}
+.gb-about__hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:58rem;background:radial-gradient(circle at 75% 35%,#594835,#17291f 70%);color:#fff8e8;overflow:hidden}
+.gb-about__hero-media{position:absolute;inset:0;z-index:-2}
+.gb-about__hero-image{width:100%;height:100%;object-fit:cover;object-position:center}
+.gb-about__hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(12,27,21,.95) 0%,rgba(12,27,21,.84) 43%,rgba(12,27,21,.35) 100%)}
+.gb-about__hero-inner{padding-block:10rem}
+.gb-about__eyebrow{margin:0 0 2rem;color:#e4c58d;font:700 1.1rem/1.5 Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase}
+.gb-about__eyebrow--dark{color:#8b663a}
+.gb-about__rule{display:block;width:8rem;border-top:2px solid var(--about-brass);margin-bottom:2.4rem}
+.gb-about__hero-title{max-width:76rem;margin:0 0 2.6rem;color:#fff8e8;font:400 clamp(4rem,5.3vw,7.6rem)/1.08 Georgia,serif;letter-spacing:-.035em}
+.gb-about__hero-intro{max-width:60rem;color:#f1e6d2;font:1.8rem/1.7 Georgia,serif}
+.gb-about__hero-intro p{margin:0}
+.gb-about__story{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(4rem,6vw,10rem);align-items:center;padding-block:clamp(7rem,9vw,13rem)}
+.gb-about__heading{margin:0 0 2.8rem;color:var(--about-ink);font:400 clamp(3.5rem,4.1vw,5.8rem)/1.13 Georgia,serif;letter-spacing:-.03em}
+.gb-about__heading--light{color:#fff8e8}
+.gb-about__body{font:1.65rem/1.85 Arial,sans-serif;color:#51463e}
+.gb-about__body p{margin:0 0 1.8rem}.gb-about__body p:last-child{margin-bottom:0}
+.gb-about__body--light{color:#efe4cf}
+.gb-about__story-image{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.gb-about__media-fallback{min-height:38rem;display:grid;place-items:center;padding:3rem;background:linear-gradient(135deg,#2b3c32,#694b35);color:#efdcb9;text-align:center;letter-spacing:.2em;font:600 1.1rem Arial,sans-serif}
+.gb-about__media-fallback--dark{height:100%;background:linear-gradient(135deg,#17291f,#584131)}
+.gb-about__caption{font:1.2rem/1.5 Arial,sans-serif;color:#776b5c;margin:1rem 0 0}
+.gb-about__stat{margin:3rem 0 0;padding-top:2rem;border-top:1px solid #d6c8b3;display:flex;gap:2rem;align-items:center}
+.gb-about__stat strong{font:400 clamp(3.5rem,4vw,5.5rem)/1 Georgia,serif;color:#866032}
+.gb-about__stat span{font:1.4rem/1.5 Arial,sans-serif;color:#655b51;max-width:15rem}
+.gb-about__history{background:var(--about-forest);color:#fff8e8;border-block:1px solid rgba(178,138,74,.4)}
+.gb-about__history-inner{position:relative;max-width:100rem;text-align:center;padding-block:clamp(8rem,9vw,13rem)}
+.gb-about__history-inner .gb-about__body{max-width:80rem;margin-inline:auto}
+.gb-about__history-symbol{font-size:3rem;color:var(--about-brass);margin-top:3rem}
+.gb-about__mission{display:grid;grid-template-columns:1fr 1fr;min-height:58rem;background:var(--about-parchment)}
+.gb-about__mission-visual{min-height:40rem;overflow:hidden}
+.gb-about__mission-image{display:block;width:100%;height:100%;object-fit:cover}
+.gb-about__mission-panel{display:flex;align-items:center;padding:clamp(4rem,6vw,10rem)}
+.gb-about__mission-content{max-width:58rem;margin-inline:auto}
+.gb-about__interests{padding-block:clamp(7rem,8vw,12rem)}
+.gb-about__interests-intro{font:1.75rem/1.7 Georgia,serif;margin:0 0 4rem;color:#655b51}
+.gb-about__cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem}
+.gb-about__card{padding:3.2rem 2.8rem;border:1px solid #d6c8b3;background:#fffdf8;min-height:22rem}
+.gb-about__card-number{font:700 1.1rem Arial,sans-serif;color:#986f39;letter-spacing:.17em}
+.gb-about__card-title{margin:1.8rem 0 1.2rem;font:400 2.7rem/1.16 Georgia,serif;color:var(--about-ink)}
+.gb-about__card-text{font:1.45rem/1.7 Arial,sans-serif;color:#51463e;margin:0}
+.gb-about__card-link{display:inline-block;margin-top:1.9rem;font:700 1.1rem/1.5 Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#694b35;text-underline-offset:.4rem}
+.gb-about__closing{background:var(--about-forest);color:#fff8e8;text-align:center}
+.gb-about__closing-inner{padding-block:clamp(7rem,8vw,11rem)}
+.gb-about__closing-title{max-width:78rem;margin:0 auto 2.4rem;color:#fff8e8;font:400 clamp(3.6rem,5vw,6.5rem)/1.13 Georgia,serif}
+.gb-about__closing p:not(.gb-about__eyebrow){font:1.7rem/1.7 Georgia,serif;color:#e9dccc}
+.gb-about__button{display:inline-flex;margin-top:2.2rem;min-height:5rem;align-items:center;gap:1.5rem;padding:1.4rem 2.8rem;border:1px solid #c8a77d;background:#6b4c5c;color:#fff;text-decoration:none;text-transform:uppercase;font:700 1.15rem Arial,sans-serif;letter-spacing:.1em}
+.gb-about__button:hover{background:#553949;color:#fff}.gb-about a:focus-visible{outline:3px solid var(--about-brass);outline-offset:4px}
+@media(max-width:989px){.gb-about__story{grid-template-columns:1fr;gap:4rem}.gb-about__story-image{aspect-ratio:3/2}.gb-about__cards{grid-template-columns:repeat(2,minmax(0,1fr))}.gb-about__mission-panel{padding:5rem 3rem}}
+@media(max-width:749px){.gb-about__container{width:min(100% - 3.6rem,120rem)}.gb-about__hero{min-height:52rem;align-items:flex-end}.gb-about__hero-inner{padding-block:9rem 5rem}.gb-about__hero-shade{background:linear-gradient(0deg,rgba(12,27,21,.95),rgba(12,27,21,.5))}.gb-about__hero-title{font-size:clamp(3.7rem,10vw,5.3rem)}.gb-about__hero-intro{font-size:1.55rem}.gb-about__mission{grid-template-columns:1fr}.gb-about__mission-visual{min-height:32rem;height:32rem}.gb-about__cards{grid-template-columns:1fr}.gb-about__heading{font-size:3.7rem}.gb-about__stat{align-items:flex-start}.gb-about__history-inner{text-align:left}}
+@media(prefers-reduced-motion:reduce){.gb-about *{scroll-behavior:auto!important}}
