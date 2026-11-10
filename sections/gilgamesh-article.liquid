@@ -1,0 +1,51 @@
+{{ 'gilgamesh-article.css' | asset_url | stylesheet_tag }}
+
+<article class="gb-article" aria-labelledby="gb-article-title-{{ section.id }}">
+  <header class="gb-article__header">
+    <div class="gb-article__container gb-article__container--narrow">
+      <a class="gb-article__back" href="{{ blog.url }}"><span aria-hidden="true">←</span> Back to the Journal</a>
+      {% if article.tags.size > 0 %}
+        <p class="gb-article__eyebrow">{{ article.tags.first | escape }}</p>
+      {% else %}
+        <p class="gb-article__eyebrow">The Gilgamesh Journal</p>
+      {% endif %}
+      <h1 id="gb-article-title-{{ section.id }}">{{ article.title | escape }}</h1>
+      {% if article.excerpt != blank %}<div class="gb-article__dek">{{ article.excerpt | strip_html }}</div>{% endif %}
+      <p class="gb-article__meta">{{ article.published_at | time_tag: format: 'date' }}{% if section.settings.show_author %}<span aria-hidden="true"> · </span>{{ article.author | escape }}{% endif %}</p>
+    </div>
+  </header>
+
+  {% if article.image != blank %}
+    <div class="gb-article__cover gb-article__container">
+      {{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600, 2000', sizes: '(min-width: 1440px) 1280px, 100vw', class: 'gb-article__cover-image' }}
+    </div>
+  {% endif %}
+
+  <div class="gb-article__container gb-article__container--narrow">
+    <div class="gb-article__body rte">{{ article.content }}</div>
+    {% if article.tags.size > 0 %}
+      <nav class="gb-article__tags" aria-label="Article topics">
+        {% for tag in article.tags %}<a href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag | escape }}</a>{% endfor %}
+      </nav>
+    {% endif %}
+    <footer class="gb-article__footer">
+      <a href="{{ blog.url }}" class="gb-article__back"><span aria-hidden="true">←</span> All Journal stories</a>
+      {% if section.settings.show_share %}
+        {% assign share_link = request.origin | append: article.url %}
+        <div class="gb-article__share">{% render 'share-button', share_link: share_link, block: section %}</div>
+      {% endif %}
+    </footer>
+  </div>
+</article>
+{% schema %}
+{
+  "name":"Gilgamesh Article",
+  "tag":"section",
+  "class":"section-gilgamesh-article",
+  "settings":[
+    {"type":"checkbox","id":"show_author","label":"Show article author","default":false},
+    {"type":"checkbox","id":"show_share","label":"Show share control","default":false}
+  ],
+  "presets":[{"name":"Gilgamesh Article"}]
+}
+{% endschema %}

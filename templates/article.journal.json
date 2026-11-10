@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "gilgamesh-article",
+      "settings": {
+        "show_author": false,
+        "show_share": false
+      }
+    }
+  },
+  "order": ["main"]
+}
