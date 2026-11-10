@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "gilgamesh-journal",
+      "settings": {
+        "eyebrow": "THE COLLECTOR'S CABINET · EDITORIAL",
+        "heading": "The Gilgamesh Journal",
+        "intro": "<p>Stories worth preserving. Ideas worth exploring. Essays from the worlds of rare books, forbidden literature, science fiction, and the history of knowledge.</p>",
+        "show_featured": true
+      }
+    }
+  },
+  "order": ["main"]
+}
