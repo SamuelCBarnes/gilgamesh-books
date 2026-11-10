@@ -1,0 +1,86 @@
+{{ 'gilgamesh-journal.css' | asset_url | stylesheet_tag }}
+
+<section class="gb-journal" aria-labelledby="gb-journal-title-{{ section.id }}">
+  <header class="gb-journal__masthead">
+    <div class="gb-journal__container">
+      <p class="gb-journal__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1 id="gb-journal-title-{{ section.id }}">{{ section.settings.heading | default: blog.title | escape }}</h1>
+      {% if section.settings.intro != blank %}<div class="gb-journal__intro rte">{{ section.settings.intro }}</div>{% endif %}
+      <div class="gb-journal__rule" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <div class="gb-journal__container gb-journal__main">
+    {% if blog.all_tags.size > 0 %}
+      <nav class="gb-journal__topics" aria-label="Journal topics">
+        <a class="gb-journal__topic{% unless current_tags %} is-active{% endunless %}" href="{{ blog.url }}"{% unless current_tags %} aria-current="page"{% endunless %}>All stories</a>
+        {% for tag in blog.all_tags %}
+          {% assign tag_active = false %}
+          {% if current_tags contains tag %}{% assign tag_active = true %}{% endif %}
+          <a class="gb-journal__topic{% if tag_active %} is-active{% endif %}" href="{{ blog.url }}/tagged/{{ tag | handleize }}"{% if tag_active %} aria-current="page"{% endif %}>{{ tag | escape }}</a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+
+    {% paginate blog.articles by 9 %}
+      {% if blog.articles.size > 0 %}
+        {% if paginate.current_page == 1 and current_tags == blank and section.settings.show_featured %}
+          {% assign featured = blog.articles.first %}
+          <article class="gb-journal__featured">
+            <a class="gb-journal__featured-image" href="{{ featured.url }}" aria-label="Read {{ featured.title | escape }}">
+              {% if featured.image != blank %}
+                {{ featured.image | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '420, 700, 1000, 1400, 1600', sizes: '(min-width: 900px) 56vw, 100vw', class: 'gb-journal__image' }}
+              {% else %}<span class="gb-journal__image-placeholder" aria-hidden="true">GILGAMESH BOOKS</span>{% endif %}
+            </a>
+            <div class="gb-journal__featured-copy">
+              <p class="gb-journal__eyebrow">Featured story</p>
+              <p class="gb-journal__meta">{{ featured.published_at | date: '%B %d, %Y' }}{% if featured.tags.size > 0 %}<span aria-hidden="true"> · </span>{{ featured.tags.first | escape }}{% endif %}</p>
+              <h2><a href="{{ featured.url }}">{{ featured.title | escape }}</a></h2>
+              <p class="gb-journal__excerpt">{{ featured.excerpt_or_content | strip_html | truncatewords: 34 }}</p>
+              <a href="{{ featured.url }}" class="gb-journal__read">Read the story <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        {% endif %}
+        <div class="gb-journal__section-heading"><p class="gb-journal__eyebrow">From the archive</p><h2>{% if current_tags %}{{ current_tags | join: ' & ' | escape }}{% else %}Latest stories{% endif %}</h2></div>
+        <div class="gb-journal__grid">
+          {% for item in blog.articles %}
+            {% assign skip_item = false %}
+            {% if paginate.current_page == 1 and current_tags == blank and section.settings.show_featured and forloop.first %}{% assign skip_item = true %}{% endif %}
+            {% unless skip_item %}
+              <article class="gb-journal__card">
+                <a class="gb-journal__card-image" href="{{ item.url }}" aria-label="Read {{ item.title | escape }}">
+                  {% if item.image != blank %}
+                    {{ item.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 900px) 30vw, (min-width: 600px) 48vw, 100vw', class: 'gb-journal__image' }}
+                  {% else %}<span class="gb-journal__image-placeholder" aria-hidden="true">THE GILGAMESH JOURNAL</span>{% endif %}
+                </a>
+                <div class="gb-journal__card-content">
+                  <p class="gb-journal__meta">{{ item.published_at | date: '%B %d, %Y' }}{% if item.tags.size > 0 %}<span aria-hidden="true"> · </span>{{ item.tags.first | escape }}{% endif %}</p>
+                  <h3><a href="{{ item.url }}">{{ item.title | escape }}</a></h3>
+                  <p class="gb-journal__excerpt">{{ item.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
+                  <a class="gb-journal__read" href="{{ item.url }}">Read article <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+            {% endunless %}
+          {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}<div class="gb-journal__pagination">{% render 'pagination', paginate: paginate %}</div>{% endif %}
+      {% else %}
+        <div class="gb-journal__empty"><h2>Stories are being collected.</h2><p>Check back for essays on literature, history, and books worth preserving.</p></div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Gilgamesh Journal",
+  "tag": "section",
+  "class": "section-gilgamesh-journal",
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"THE COLLECTOR'S CABINET · EDITORIAL"},
+    {"type":"text","id":"heading","label":"Heading","default":"The Gilgamesh Journal"},
+    {"type":"richtext","id":"intro","label":"Introduction","default":"<p>Stories worth preserving. Ideas worth exploring. Essays from the worlds of rare books, forbidden literature, science fiction, and the history of knowledge.</p>"},
+    {"type":"checkbox","id":"show_featured","label":"Feature the newest article on page one","default":true}
+  ],
+  "presets":[{"name":"Gilgamesh Journal"}]
+}
+{% endschema %}
